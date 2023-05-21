@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<h3>Remove</h3>
+<p>
+    <a th:href="@{/study/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/study/delete}" th:object="${study}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{record}"/>
+        <input type="hidden" th:field="*{idStudy}"/>
+        <div>
+            <label>Name</label>
+            <label th:text="*{nameStudy}"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <label th:text="*{price}"></label>
+        </div>
+        <div>
+            <label>Amount</label>
+            <label th:text="*{amount}"></label>
+        </div>
+        <div>
+            <label>Color</label>
+            <label th:text="*{color}"></label>
+        </div>
+        <div>
+            <label>Publisher</label>
+            <label th:text="*{publisher}"></label>
+        </div>
+        <div>
+            <label>Date Publish</label>
+            <label th:text="*{datePublish}"></label>
+        </div>
+        <div>
+            <label>Category Study</label>
+            <label th:text="*{categoryStudy.name}"></label>
+        </div>
+        <input type="submit" value="Remove">
+    </form>
+</div>
+</body>
+</html>

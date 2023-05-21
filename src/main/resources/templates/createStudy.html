@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${study.getIdStudy() == null}">
+        <title>Create New Study</title>
+    </div>
+    <div th:unless="${study.getIdStudy() == null}">
+        <title>Modify Study</title>
+    </div>
+</head>
+<body>
+<div th:if="${study.getIdStudy() == null}">
+    <h3> Create New Study</h3>
+</div>
+<div th:unless="${study.getIdStudy() == null}">
+    <h3> Modify Study</h3>
+</div>
+<p>
+    <a th:href="@{/study/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/study/save}" th:object="${study}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{record}"/>
+        <input type="hidden" th:field="*{idStudy}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{nameStudy}"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="text" th:field="*{price}"/>
+        </div>
+        <div>
+            <label>Amount</label>
+            <input type="text" th:field="*{amount}"/>
+        </div>
+        <div>
+            <label>Color</label>
+            <input type="text" th:field="*{color}"/>
+        </div>
+        <div>
+            <label>Publisher</label>
+            <input type="text" th:field="*{publisher}"/>
+        </div>
+        <div>
+            <label>Date Publish</label>
+            <input type="date" th:field="*{datePublish}"/>
+        </div>
+        <div>
+            <label>Category Study</label>
+            <select th:field="*{categoryStudy}">
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:text="${category.name}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

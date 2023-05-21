@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${book.getIdBook() == null}">
+        <title>Create New book</title>
+    </div>
+    <div th:unless="${book.getIdBook() == null}">
+        <title>Modify book</title>
+    </div>
+</head>
+<body>
+<div th:if="${book.getIdBook() == null}">
+    <h3> Create New Book</h3>
+</div>
+<div th:unless="${book.getIdBook() == null}">
+    <h3> Modify Book</h3>
+</div>
+<p>
+    <a th:href="@{/book/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/book/save}" th:object="${book}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{record}"/>
+        <input type="hidden" th:field="*{idBook}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{nameBook}"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="text" th:field="*{price}"/>
+        </div>
+        <div>
+            <label>Amount</label>
+            <input type="text" th:field="*{amount}"/>
+        </div>
+        <div>
+            <label>Author</label>
+            <input type="text" th:field="*{author}"/>
+        </div>
+        <div>
+            <label>Publisher</label>
+            <input type="text" th:field="*{publisher}"/>
+        </div>
+        <div>
+            <label>Date Publish</label>
+            <input type="date" th:field="*{datePublish}"/>
+        </div>
+        <div>
+            <label>Category Book</label>
+            <select th:field="*{categoryBook}">
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:text="${category.name}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

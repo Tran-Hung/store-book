@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Type Client</title>
+</head>
+<body>
+<h3>Type Client</h3>
+<p>
+    <a th:href="@{/typeClient/create-edit}">
+        Add new type
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="typeClient,rowStat : ${typeClients}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${typeClient.getNameType()}"></td>
+        <td th:text="${typeClient.getDescription()}"></td>
+        <td><a th:href="@{/typeClient/create-edit/{id}(id=${typeClient.getId()})}">edit</a></td>
+        <td><a th:href="@{/typeClient/delete/{id}(id=${typeClient.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

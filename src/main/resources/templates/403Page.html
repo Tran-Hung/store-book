@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+<p>
+    <a th:href="@{/home}">
+        Home
+    </a>
+</p>
+<h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
+
+<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+
+</body>
+</html>

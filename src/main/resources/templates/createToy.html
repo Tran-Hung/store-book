@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${toy.getIdToy() == null}">
+        <title>Create New toy</title>
+    </div>
+    <div th:unless="${toy.getIdToy() == null}">
+        <title>Modify toy</title>
+    </div>
+</head>
+<body>
+<div th:if="${toy.getIdToy() == null}">
+    <h3> Create New toy</h3>
+</div>
+<div th:unless="${toy.getIdToy() == null}">
+    <h3> Modify toy</h3>
+</div>
+<p>
+    <a th:href="@{/toy/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/toy/save}" th:object="${toy}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{record}"/>
+        <input type="hidden" th:field="*{idToy}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{nameToy}"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="text" th:field="*{price}"/>
+        </div>
+        <div>
+            <label>Amount</label>
+            <input type="text" th:field="*{amount}"/>
+        </div>
+        <div>
+            <label>Publisher</label>
+            <input type="text" th:field="*{publisher}"/>
+        </div>
+        <div>
+            <label>Date Publish</label>
+            <input type="date" th:field="*{datePublish}"/>
+        </div>
+        <div>
+            <label>Category Toy</label>
+            <select th:field="*{categoryToy}">
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:text="${category.name}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

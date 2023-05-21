@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${categoryStudy.getId() == null}">
+        <title>Create Category Study</title>
+    </div>
+    <div th:unless="${categoryStudy.getId() == null}">
+        <title>Modify Category Study</title>
+    </div>
+</head>
+<body>
+<div th:if="${categoryStudy.getId() == null}">
+    <h3>Add Category Study</h3>
+</div>
+<div th:unless="${categoryStudy.getId() == null}">
+    <h3> Modify Category Study</h3>
+</div>
+
+<p>
+    <a th:href="@{/categoryStudy/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/categoryStudy/save}" th:object="${categoryStudy}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Description</label><br/>
+            <textarea name="description" cols="80" rows="5" th:field="*{description}"></textarea>
+        </div>
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

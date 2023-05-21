@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${typeClient.getId() == null}">
+        <title>Create Type Client</title>
+    </div>
+    <div th:unless="${typeClient.getId() == null}">
+        <title>Modify Type Client</title>
+    </div>
+</head>
+<body>
+<div th:if="${typeClient.getId() == null}">
+    <h3>Add Type Client</h3>
+</div>
+<div th:unless="${typeClient.getId() == null}">
+    <h3> Modify Type Client</h3>
+</div>
+
+<p>
+    <a th:href="@{/typeClient/list}">
+        Back to list type
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/typeClient/save}" th:object="${typeClient}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{nameType}"/>
+        </div>
+        <div>
+            <label>Description</label><br/>
+            <textarea name="description" cols="80" rows="5" th:field="*{description}"></textarea>
+        </div>
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

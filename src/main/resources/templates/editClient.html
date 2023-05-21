@@ -1,0 +1,47 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Edit</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h3>Modify client</h3>-->
+<!--<p>-->
+<!--    <a th:href="@{/client/list}">-->
+<!--        Back to list-->
+<!--    </a>-->
+<!--</p>-->
+<!--<div id="form">-->
+<!--    <form action="#" th:action="@{/client/update}" th:object="${client}"-->
+<!--          method="POST" novalidate="novalidate">-->
+<!--        <input type="hidden" th:field="*{record}"/>-->
+<!--        <input type="hidden" th:field="*{idClient}"/>-->
+<!--        <div>-->
+<!--            <label>Name</label>-->
+<!--            <input type="text" th:field="*{nameClient}"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label>Email</label>-->
+<!--            <input type="email" th:field="*{email}"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label>Birthday</label>-->
+<!--            <input type="date" th:field="*{birthday}"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label>Phone</label>-->
+<!--            <input type="text" th:field="*{phone}"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label>Type client</label>-->
+<!--            <select th:field="*{typeClient}" class="form-control" required>-->
+<!--                <th:block th:each="typeClient : ${typeClients}">-->
+<!--                    <option th:value="${typeClient.id}" th:text="${typeClient.nameType}"></option>-->
+<!--                </th:block>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <input type="submit" value="Modify"></input>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

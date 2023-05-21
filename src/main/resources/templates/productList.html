@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<p>
+    <a th:href="@{/home}">
+        Home
+    </a>
+</p>
+<p>
+    <a th:href="@{/order/cart/{idClient}(idClient = ${idClient})}">
+        Cart
+    </a>
+</p>
+<table id = "books">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Publisher</th>
+        <th>DatePublish</th>
+        <th>Category Book</th>
+        <th>Order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book,rowStat : ${books}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${book.getNameBook()}"></td>
+        <td th:text="${book.getAuthor()}"></td>
+        <td th:text="${book.getPrice()}"></td>
+        <td th:text="${book.getAmount()}"></td>
+        <td th:text="${book.getPublisher()}"></td>
+        <td th:text="${book.getDatePublish()}"></td>
+        <td th:text="${book.getCategoryBook().name}"></td>
+        <td><form th:action="@{/order/save}" method="post">
+            <input type="number" th:value="number" th:name="number" th:min="1" th:size="2" th:max="${book.getAmount()}"/>
+            <input type="hidden" th:value="*{book.idBook}" th:name="idProduct"/>
+            <input type="hidden" th:value="${idClient}" th:name="idClient"/>
+            <button type="submit" class="btn btn-info" >Add to cart</button>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+<table id = "toys">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Publisher</th>
+        <th>DatePublish</th>
+        <th>Category Toy</th>
+        <th>Order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="toy,rowStat : ${toys}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${toy.getNameToy()}"></td>
+        <td th:text="${toy.getPrice()}"></td>
+        <td th:text="${toy.getAmount()}"></td>
+        <td th:text="${toy.getPublisher()}"></td>
+        <td th:text="${toy.getDatePublish()}"></td>
+        <td th:text="${toy.getCategoryToy().name}"></td>
+        <td><form th:action="@{/order/save}" method="post">
+            <input type="number" th:value="number" th:name="number" th:min="1" th:size="2" th:max="${toy.getAmount()}"/>
+            <input type="hidden" th:value="*{toy.getIdToy()}" th:name="idProduct"/>
+            <input type="hidden" th:value="*{idClient}" th:name="idClient"/>
+            <button type="submit" class="btn btn-info" >Add to cart</button>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+<table id = "study">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Publisher</th>
+        <th>DatePublish</th>
+        <th>Category Study</th>
+        <th>Order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="study,rowStat : ${studies}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${study.getNameStudy()}"></td>
+        <td th:text="${study.getColor()}"></td>
+        <td th:text="${study.getPrice()}"></td>
+        <td th:text="${study.getAmount()}"></td>
+        <td th:text="${study.getPublisher()}"></td>
+        <td th:text="${study.getDatePublish()}"></td>
+        <td th:text="${study.getCategoryStudy().name}"></td>
+        <td><form th:action="@{/order/save}" method="post">
+            <input type="number" th:value="number" th:name="number" th:min="1" th:size="2" th:max="${study.getAmount()}"/>
+            <input type="hidden" th:value="*{study.getIdStudy()}" th:name="idProduct"/>
+            <input type="hidden" th:value="*{idClient}" th:name="idClient"/>
+            <button type="submit" class="btn btn-info" >Add to cart</button>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

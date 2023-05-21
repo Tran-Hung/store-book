@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Toy</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<h3>Toys</h3>
+<p>
+    <a th:href="@{/home}">
+        Home
+    </a>
+</p>
+<p>
+    <a th:href="@{/toy/create-edit}">
+        Add new
+    </a>
+</p>
+<p>
+    <a th:href="@{/categoryToy/list}">
+        Category Toy
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<form th:action="@{/toy/list}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Name or Type" size="50" >
+    <button type="submit" class="btn btn-info" >Search</button>
+    <button type="submit" class="btn btn-info" >Reset</button>
+</form>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Publisher</th>
+        <th>DatePublish</th>
+        <th>Category Toy</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="toy,rowStat : ${toyPages}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${toy.getNameToy()}"></td>
+        <td th:text="${toy.getPrice()}"></td>
+        <td th:text="${toy.getAmount()}"></td>
+        <td th:text="${toy.getPublisher()}"></td>
+        <td th:text="${toy.getDatePublish()}"></td>
+        <td th:text="${toy.getCategoryToy().name}"></td>
+        <td><a th:href="@{/toy/create-edit/{id}(id=${toy.getIdToy()})}">edit</a></td>
+        <td><a th:href="@{/toy/delete/{id}(id=${toy.getIdToy()})}">delete</a></td>
+        <td><a th:href="@{/toy/view/{id}(id=${toy.getIdToy()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${toyPages.totalPages > 1}" >
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage > 1}" th:href="@{/toy/list(size=${toyPages.size}, page=${1})}">First</a>
+                        <span th:unless="${currentPage > 1}">First</span>
+                    </div>
+                    <div class = "col-sm-1">
+                        <a th:if="${currentPage > 1}" th:href="@{/toy/list(size=${toyPages.size}, page=${currentPage-1})}">Previous</a>
+                        <span th:unless="${currentPage > 1}">Previous</span>
+                    </div>
+                    <li class="col-sm-1" th:each="pageNumber : ${pageNumbers}">
+                        <a th:if="${currentPage != pageNumber}" th:href="@{/toy/list(size=${toyPages.size}, page=${pageNumber})}"
+                           th:text=${pageNumber} th:class="${pageNumber==toyPages.number + 1} ? active"></a>
+                        <span th:unless="${currentPage != pageNumber}">[[${pageNumber}]]</span>  &nbsp; &nbsp;
+                    </li>
+                    <div class = "col-sm-1">
+                        <a th:if="${currentPage < toyPages.totalPages}" th:href="@{/toy/list(size=${toyPages.size}, page=${currentPage+1})}">Next</a>
+                        <span th:unless="${currentPage < toyPages.totalPages}">Next</span>
+                    </div>
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < toyPages.totalPages}" th:href="@{/toy/list(size=${toyPages.size}, page=${toyPages.totalPages})}">Last</a>
+                        <span th:unless="${currentPage < toyPages.totalPages}">Last</span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<h3>Hello <span th:utext="${client.getNameClient()}"></span></h3>
+<div th:if="${admin}">
+    <p>
+        <a th:href="@{/book/list}">
+            Book
+        </a>
+    </p>
+    <p>
+        <a th:href="@{/study/list}">
+            Study
+        </a>
+    </p>
+    <p>
+        <a th:href="@{/toy/list}">
+            Toy
+        </a>
+    </p>
+    <p>
+        <a th:href="@{/client/list}">
+            Client
+        </a>
+    </p>
+</div>
+<div th:if="${user}">
+    <p>
+        <a th:href="@{/order/list}">
+            Product List
+        </a>
+    </p>
+    <p>
+        <a th:href="@{/historyOrder/{idClient}(idClient = ${client.getIdClient()})}">
+            History Order
+        </a>
+    </p>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>

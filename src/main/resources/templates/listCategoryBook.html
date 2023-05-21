@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Category Book</title>
+</head>
+<body>
+<h3>Category Book</h3>
+<p>
+    <a th:href="@{/categoryBook/create-edit}">
+        Add new
+    </a>
+</p>
+<p>
+    <a th:href="@{/book/list}">
+        List Book
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="categoryBook,rowStat : ${list}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${categoryBook.getName()}"></td>
+        <td th:text="${categoryBook.getDescription()}"></td>
+        <td><a th:href="@{/categoryBook/create-edit/{id}(id=${categoryBook.getId()})}">edit</a></td>
+        <td><a th:href="@{/categoryBook/delete/{id}(id=${categoryBook.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

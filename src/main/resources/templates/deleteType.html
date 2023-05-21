@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<h3>Remove type</h3>
+<p>
+    <a th:href="@{/typeClient/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/typeClient/delete}" th:object="${typeClient}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <label th:text="*{nameType}"/>
+        </div>
+        <div>
+            <label>Description</label>
+            <label th:text="*{description}"></label>
+        </div>
+        <input type="submit" value="Remove">
+    </form>
+</div>
+</body>
+</html>

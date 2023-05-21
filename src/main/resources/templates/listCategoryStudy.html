@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Category Study</title>
+</head>
+<body>
+<h3>Category Study</h3>
+<p>
+    <a th:href="@{/categoryStudy/create-edit}">
+        Add new
+    </a>
+</p>
+<p>
+    <a th:href="@{/study/list}">
+        List Study
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="categoryStudy,rowStat : ${list}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${categoryStudy.getName()}"></td>
+        <td th:text="${categoryStudy.getDescription()}"></td>
+        <td><a th:href="@{/categoryStudy/create-edit/{id}(id=${categoryStudy.getId()})}">edit</a></td>
+        <td><a th:href="@{/categoryStudy/delete/{id}(id=${categoryStudy.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

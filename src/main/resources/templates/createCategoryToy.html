@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:if="${categoryToy.getId() == null}">
+        <title>Create Category Toy</title>
+    </div>
+    <div th:unless="${categoryToy.getId() == null}">
+        <title>Modify Category Toy</title>
+    </div>
+</head>
+<body>
+<div th:if="${categoryToy.getId() == null}">
+    <h3>Add Category Toy</h3>
+</div>
+<div th:unless="${categoryToy.getId() == null}">
+    <h3> Modify Category Toy</h3>
+</div>
+
+<p>
+    <a th:href="@{/categoryToy/list}">
+        Back to list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/categoryToy/save}" th:object="${categoryToy}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Description</label><br/>
+            <textarea name="description" cols="80" rows="5" th:field="*{description}"></textarea>
+        </div>
+        <input type="submit" value="Save" />
+    </form>
+</div>
+</body>
+</html>

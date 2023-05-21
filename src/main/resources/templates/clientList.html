@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Client</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<h3>Clients</h3>
+<p>
+    <a th:href="@{/home}">
+        Home
+    </a>
+</p>
+<p>
+    <a th:href="@{/typeClient/list}">
+        Type Client
+    </a>
+</p>
+<p>
+    <a th:href="@{/client/create-edit}">
+        Add new client
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<form th:action="@{/client/list}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Name or Type" size="50" >
+    <button type="submit" class="btn btn-info" >Search</button>
+    <button type="submit" class="btn btn-info" >Reset</button>
+</form>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>BirthDay</th>
+        <th>Type Client</th>
+        <th>Photo</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client,rowStat : ${clientPage}">
+        <td th:text="${rowStat.index + 1}"></td>
+        <td th:text="${client.getNameClient()}"></td>
+        <td th:text="${client.getEmail()}"></td>
+        <td th:text="${client.getPhone()}"></td>
+        <td th:text="${client.getBirthday()}"></td>
+        <td th:text="${client.getTypeClient().nameType}"></td>
+        <td><img th:src="@{${client.getPhotosImagePath()}}" style="width: 100px" /></td>
+        <td><a th:href="@{/client/create-edit/{id}(id=${client.getIdClient()})}">edit</a></td>
+        <td><a th:href="@{/client/delete/{id}(id=${client.getIdClient()})}">delete</a></td>
+        <td><a th:href="@{/client/view/{id}(id=${client.getIdClient()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${clientPage.totalPages > 1}" >
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage > 1}" th:href="@{/client/list(size=${clientPage.size}, page=${1})}">First</a>
+                        <span th:unless="${currentPage > 1}">First</span>
+                    </div>
+                    <div class = "col-sm-1">
+                        <a th:if="${currentPage > 1}" th:href="@{/client/list(size=${clientPage.size}, page=${currentPage-1})}">Previous</a>
+                        <span th:unless="${currentPage > 1}">Previous</span>
+                    </div>
+                    <li class="col-sm-1" th:each="pageNumber : ${pageNumbers}">
+                        <a th:if="${currentPage != pageNumber}" th:href="@{/client/list(size=${clientPage.size}, page=${pageNumber})}"
+                           th:text=${pageNumber} th:class="${pageNumber==clientPage.number + 1} ? active"></a>
+                        <span th:unless="${currentPage != pageNumber}">[[${pageNumber}]]</span>  &nbsp; &nbsp;
+                    </li>
+                    <div class = "col-sm-1">
+                    <a th:if="${currentPage < clientPage.totalPages}" th:href="@{/client/list(size=${clientPage.size}, page=${currentPage+1})}">Next</a>
+                    <span th:unless="${currentPage < clientPage.totalPages}">Next</span>
+                    </div>
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < clientPage.totalPages}" th:href="@{/client/list(size=${clientPage.size}, page=${clientPage.totalPages})}">Last</a>
+                        <span th:unless="${currentPage < clientPage.totalPages}">Last</span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--<div th:if = "${clientPage.totalPages > 1}">-->
+<!--    <div class = "row col-sm-10">-->
+<!--        <div class = "col-sm-2">-->
+<!--            Total Rows: [[${clientPage.totalElements}]]-->
+<!--        </div>-->
+<!--        <div class = "col-sm-1">-->
+<!--					<span th:each="i: ${#numbers.sequence(1, clientPage.totalPages )}">-->
+<!--						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>-->
+<!--						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;-->
+<!--					</span>-->
+<!--        </div>-->
+<!--        <div class = "col-sm-1">-->
+<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>-->
+<!--            <span th:unless="${currentPage < totalPages}">Next</span>-->
+<!--        </div>-->
+
+<!--        <div class="col-sm-1">-->
+<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>-->
+<!--            <span th:unless="${currentPage < totalPages}">Last</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>

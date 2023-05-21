@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<h3>Cart</h3>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<p>
+    <a th:href="@{/order/list}">
+        Back to list
+    </a>
+</p>
+<div th:if="${alert == null}">
+    <table id = "product">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bean,rowStat : ${cartBean.getProductBean()}">
+            <td th:text="${rowStat.index + 1}"></td>
+            <td th:text="${bean.nameProduct}"></td>
+            <td th:text="${bean.getPrice()}"></td>
+            <td> <form th:action="@{/order/updateCart}" method="post">
+                <input type="number" th:value="*{bean.amount}" th:name="number" th:min="1" th:size="2"/>
+                <input type="hidden" th:value="*{bean.getIdProduct()}" th:name="idProduct">
+                <input type="hidden" th:value="*{cartBean.getIdOrder()}" th:name="idOrder">
+                <input type="hidden" th:value="${idClient}" th:name="idClient"/>
+                <button type="submit" class="btn btn-info" >update</button>
+            </form></td>
+            <td th:text="${bean.getTotalPrice()}"></td>
+            <td><form th:action="@{/order/delete}" method="post">
+                <input type="hidden" th:value="*{bean.getIdProduct()}" th:name="idProduct">
+                <input type="hidden" th:value="*{cartBean.getIdOrder()}" th:name="idOrder">
+                <input type="hidden" th:value="${idClient}" th:name="idClient"/>
+                <button type="submit" class="btn btn-info" >Delete</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <h3>Total: </h3>
+        <label th:text="*{cartBean.getTotal()}"/>
+    </div>
+    <form th:action="@{/order/buy}" method="post">
+        <input type="hidden" th:value="*{cartBean.getIdOrder()}" th:name="idOrder">
+        <input type="hidden" th:value="*{cartBean.getTotal()}" th:name="total">
+        <button type="submit" class="btn btn-info" >Buy</button>
+    </form>
+</div>
+<div th:unless="${alert == null}">
+    <h3 th:text="${alert}"></h3>
+</div>
+</body>
+</html>
